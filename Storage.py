@@ -4,6 +4,7 @@ from pymongo import database
 
 from twitterapi import TwitterController
 
+# initialise MongoDB
 client = pymongo.MongoClient(
     'mongodb+srv://bot:bot@twitterbot.rsemx.mongodb.net/test')
 
@@ -42,12 +43,12 @@ def get_account_from_db(handle):
     if account is None:
         account = {
             'handle' : handle,
+            'following' : {}
         }
         add_one_account(account)
-        print('Account does not exist in the database, creating Account for the user')
-        return # exit function
-    else:
-        return account
+        print(f"Account does not exist in the database, creating Account for @{handle}")
+    
+    return account
 
 # add one account into db.accounts
 def add_one_account(account):
@@ -62,14 +63,15 @@ def update_following(handle, following_from_twitter):
     })
     print(f"Successfully updated {handle}")
     
-def get_difference_in_followers(following_from_db, following_from_twitter):
+# returns a list of twitter minus db
+def get_difference_in_following(following_from_db, following_from_twitter):
     difference = set(following_from_twitter).difference(following_from_db)
     return list(difference)
     
 # update the database with the following list of the user
-def check_for_new_followers(handle):
+def check_for_new_following(handle):
     # new followers container
-    new_followers = []
+    new_following = []
     # get following list of the account from twitter
     following_from_twitter = get_following_from_twitter(handle)
 
@@ -78,11 +80,11 @@ def check_for_new_followers(handle):
 
     # compare db following to twitter following
     if frozenset(following_from_db) == frozenset(following_from_twitter):
-        print('No new followers found!')
-        return new_followers
+        print('No new following found!')
+        return new_following
     else:
-        # get new followers 
-        new_followers = get_difference_in_followers(
+        # get new following 
+        new_following = get_difference_in_following(
             following_from_db, following_from_twitter
         )
 
@@ -90,7 +92,7 @@ def check_for_new_followers(handle):
         update_following(handle, following_from_twitter)
 
         # system reply
-        print("Here are the new followers for @{handle}:")
-        print(new_followers)
+        print(f"Here are the new following for @{handle}:")
+        print(new_following)
 
-        return new_followers
+        return new_following
