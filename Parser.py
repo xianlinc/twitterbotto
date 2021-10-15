@@ -13,6 +13,8 @@ def parse_operation(operation):
     elif (operation == 'list'):
         account_list = get_account_list()
         return account_list
+    else:
+        print("I do not understand your command!")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
