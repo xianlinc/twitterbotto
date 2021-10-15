@@ -16,6 +16,15 @@ following = db['following']
 
             
 
+# get a list of accounts in the accounts database
+def get_account_list():
+    account_list = []
+    for account in accounts.find({}):
+        handle = account.get('handle')
+        account_list.append(handle)
+    print(f"Here is the account list:")
+    print(account_list)
+    return account_list
         
 # get following list from twitter API
 def get_following_from_twitter(handle):
