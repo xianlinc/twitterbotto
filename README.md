@@ -17,7 +17,7 @@
 
 #### Overview
 
-This iteration should have a feature to check for new followers and display the new followers through a command line. The followers should also be saved in the database.
+This iteration should have a feature to check for new following and display the new following through a command line. The following should also be saved in the database.
 
 #### Features
 
@@ -27,7 +27,7 @@ This iteration should have a feature to check for new followers and display the 
   * Use a database
 * Check who the account is currently following
   * Query API
-  * Update database if new followers
+  * Update database if new following
 * Compare the two
 
 **List out saved users from database**
@@ -36,11 +36,11 @@ This iteration should have a feature to check for new followers and display the 
 
 **CLI based check function**
 
-* Typing check should check for new followers and display them
+* Typing check should check for new following and display them
 
 **Relevant Links**
 
-[Twitter Bot to check for new followers](https://gist.github.com/0a6e92911c206bb72232)
+[Twitter Bot to check for new follower](https://gist.github.com/0a6e92911c206bb72232)
 
 [Twitter Bot to automatically notify of a new follower on slack](https://gist.github.com/raspberrycoulis/f8e2b648479aa779074d1baccb235a35)
 
