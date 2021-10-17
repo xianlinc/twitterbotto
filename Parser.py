@@ -5,14 +5,13 @@ from Storage import *
 def parse_operation(operation):
     if (operation == 'check'):
         new_following = check_for_new_following(args.handle)
-        return new_following
     elif (operation == 'following'):
         following = get_following_from_db(args.handle)
         print(f"Here are the people @{args.handle} is following:\n{following}")
-        return following
     elif (operation == 'list'):
         account_list = get_account_list()
-        return account_list
+    elif (operation == 'stalk'):
+        add_account(args.handle)
     else:
         print("I do not understand your command!")
 
