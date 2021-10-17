@@ -16,13 +16,23 @@ following = db['following']
 
             
 
+# add an account + following list into the database from twitter
+def add_account(handle):
+    following_from_twitter = get_following_from_twitter(handle)
+    account = {
+        'handle': handle,
+        'following': following_from_twitter
+    }
+    add_one_account(account)
+    print(f"We are successfully stalking @{handle}")
+
 # get a list of accounts in the accounts database
 def get_account_list():
     account_list = []
     for account in accounts.find({}):
         handle = account.get('handle')
         account_list.append(handle)
-    print(f"Here is the account list:")
+    print(f"Here is the list of accounts being stalked:")
     print(account_list)
     return account_list
         
