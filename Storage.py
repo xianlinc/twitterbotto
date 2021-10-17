@@ -15,6 +15,14 @@ followers = db['followers']
 following = db['following']
 
             
+# if account exists, return true, else return false
+def accountExists(handle):
+    account = None
+    for temp in accounts.find({'handle' : handle}):
+        account = temp
+
+    # if account exists, return true, else return false
+    return account is not None
 
 # add an account + following list into the database from twitter
 def add_account(handle):
@@ -91,6 +99,14 @@ def get_difference_in_following(following_from_db, following_from_twitter):
 def check_for_new_following(handle):
     # new followers container
     new_following = []
+
+    # if account doesnt exist, update database with account and exit function
+    if (not accountExists(handle)):
+        print(f"No new following found!\n" +
+              f"@{handle} is not in the database! Creating account for @{handle}.")
+        add_account(handle)
+        return new_following
+
     # get following list of the account from twitter
     following_from_twitter = get_following_from_twitter(handle)
 
