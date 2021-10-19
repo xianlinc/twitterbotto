@@ -1,20 +1,24 @@
 import argparse
 
-from Storage import *
+from Storage import check_for_new_following
+from Storage import get_following_from_db
+from Storage import get_account_list
+from Storage import add_account
+
 
 def parse_operation(operation):
     if (operation == 'check'):
-        new_following = check_for_new_following(args.handle)
-        return new_following
+        check_for_new_following(args.handle)
     elif (operation == 'following'):
         following = get_following_from_db(args.handle)
         print(f"Here are the people @{args.handle} is following:\n{following}")
-        return following
     elif (operation == 'list'):
-        account_list = get_account_list()
-        return account_list
+        get_account_list()
+    elif (operation == 'stalk'):
+        add_account(args.handle)
     else:
         print("I do not understand your command!")
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -23,6 +27,3 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     parse_operation(args.operation)
-
-    
-            
