@@ -44,9 +44,33 @@ This iteration should have a feature to check for new following and display the 
 
 [Twitter Bot to automatically notify of a new follower on slack](https://gist.github.com/raspberrycoulis/f8e2b648479aa779074d1baccb235a35)
 
-## v1.2 (coming soon)
+## v1.2
+
+### Overview
+
+This iteration should automatically check for new followers daily and notify user.
 
 #### Features
 
+* Notify user using telegram bot
+  * Format of telegram stalk notification:
+    * Row 1 - Name | Username | Link | Tag, 
+    * Row 2 - Following | Follower, 
+    * Row 3 - Acc Description
+    * Row 4 - New Accounts Followed in same format as row 1 - 3.
+* Periodically check for new following
+  * Add method to check for new following of accounts currently in database
+  * Script that runs the check method periodically
+
+### Improvements
+
+* Improvements to account information in database
+  * Add a tag to Accounts being stalked e.g NFT
+  * Store all information given by twitter User object in database
+    * Store twitter ID of stalked account
+  * Store twitter ID only in following list
+  * 
+* Enhance list method
+  * Display tag of the user that is stalked
 
 
