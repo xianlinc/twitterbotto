@@ -111,7 +111,7 @@ def check_for_new_following(handle):
     new_following = []
 
     # if account doesnt exist, update database with account and exit function
-    if (not accountExists(handle)):
+    if (not account_exists(handle)):
         print(f"@{handle} is not in the database!" +
               f" Creating account for @{handle}.")
         add_account(handle)
@@ -143,7 +143,7 @@ def check_for_new_following(handle):
     print(f"Here are the new following for @{handle}:")
     print(new_following)
 
-        return new_following
+    return new_following
 
 
 # check for new following for all stalked accounts in the database
