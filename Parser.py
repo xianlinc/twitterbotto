@@ -4,6 +4,7 @@ from Storage import check_for_new_following
 from Storage import get_following_from_db
 from Storage import get_account_list
 from Storage import add_account
+from Storage import check_all
 
 
 def parse_operation(operation):
@@ -16,6 +17,8 @@ def parse_operation(operation):
         get_account_list()
     elif (operation == 'stalk'):
         add_account(args.handle)
+    elif (operation == 'check-all'):
+        check_all()
     else:
         print("I do not understand your command!")
 
