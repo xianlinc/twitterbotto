@@ -15,7 +15,7 @@ new_following_db = db['new_following']
 
 
 # if account exists, return true, else return false
-def accountExists(handle):
+def account_exists(handle):
     account = None
     for temp in accounts.find({'handle': handle}):
         account = temp
@@ -111,7 +111,7 @@ def check_for_new_following(handle):
     new_following = []
 
     # if account doesnt exist, update database with account and exit function
-    if (not accountExists(handle)):
+    if (not account_exists(handle)):
         print("No new following found!\n" +
               f"@{handle} is not in the database!" +
               f" Creating account for @{'handle'}.")
@@ -145,3 +145,13 @@ def check_for_new_following(handle):
         print(new_following)
 
         return new_following
+
+
+# check for new following for all stalked accounts in the database
+def check_all():
+    # get a list of handles of stalked accounts
+    handle_list = get_account_list()
+
+    # for each account, check for new following
+    for handle in handle_list:
+        check_for_new_following(handle)
