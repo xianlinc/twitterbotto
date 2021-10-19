@@ -32,7 +32,7 @@ def add_account(handle):
         'following': following_from_twitter
     }
     add_one_account(account)
-    print(f"We are successfully stalking @{'handle'}")
+    print(f"We are successfully stalking @{handle}")
 
 
 # get a list of accounts in the accounts database
@@ -79,7 +79,7 @@ def get_account_from_db(handle):
         }
         add_one_account(account)
         print("Account does not exist in the database," +
-              f" creating Account for @{'handle'}")
+              f" creating Account for @{handle}")
 
     return account
 
@@ -111,10 +111,9 @@ def check_for_new_following(handle):
     new_following = []
 
     # if account doesnt exist, update database with account and exit function
-    if (not account_exists(handle)):
-        print("No new following found!\n" +
-              f"@{handle} is not in the database!" +
-              f" Creating account for @{'handle'}.")
+    if (not accountExists(handle)):
+        print(f"@{handle} is not in the database!" +
+              f" Creating account for @{handle}.")
         add_account(handle)
         return new_following
 
@@ -124,25 +123,25 @@ def check_for_new_following(handle):
     # get following list of the account from db
     following_from_db = get_following_from_db(handle)
 
-    # compare db following to twitter following
-    if frozenset(following_from_db) == frozenset(following_from_twitter):
+    # get the following that are in twitter but not db
+    new_following = get_difference_in_following(
+        following_from_db, following_from_twitter
+    )
+    
+    # if no difference in following, no new followers, exit function
+    if (new_following == []):
         print('No new following found!')
         return new_following
-    else:
-        # get new following
-        new_following = get_difference_in_following(
-            following_from_db, following_from_twitter
-        )
 
-        # add to new followers database
-        update_following(handle, new_following, new_following_db)
+    # add to new followers database
+    update_following(handle, new_following, new_following_db)
 
-        # update database with updated following from twitter
-        update_following(handle, following_from_twitter, accounts)
+    # update database with updated following from twitter
+    update_following(handle, following_from_twitter, accounts)
 
-        # system reply
-        print(f"Here are the new following for @{handle}:")
-        print(new_following)
+    # system reply
+    print(f"Here are the new following for @{handle}:")
+    print(new_following)
 
         return new_following
 
