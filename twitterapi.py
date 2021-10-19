@@ -32,7 +32,7 @@ class TwitterController():
         for friend in tweepy.Cursor(
                       self.twitter_controller.friends,
                       id=self.twitter_user
-                      ).items():
+                      ).items(20):
             following_list.append(friend)
         return following_list
 
