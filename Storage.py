@@ -1,7 +1,5 @@
 import pymongo
 
-from pymongo import database
-
 from twitterapi import TwitterController
 
 # initialise MongoDB
@@ -15,15 +13,16 @@ followers = db['followers']
 following = db['following']
 new_following_db = db['new_following']
 
-            
+
 # if account exists, return true, else return false
 def accountExists(handle):
     account = None
-    for temp in accounts.find({'handle' : handle}):
+    for temp in accounts.find({'handle': handle}):
         account = temp
 
     # if account exists, return true, else return false
     return account is not None
+
 
 # add an account + following list into the database from twitter
 def add_account(handle):
@@ -33,7 +32,8 @@ def add_account(handle):
         'following': following_from_twitter
     }
     add_one_account(account)
-    print(f"We are successfully stalking @{handle}")
+    print(f"We are successfully stalking @{'handle'}")
+
 
 # get a list of accounts in the accounts database
 def get_account_list():
@@ -41,10 +41,11 @@ def get_account_list():
     for account in accounts.find({}):
         handle = account.get('handle')
         account_list.append(handle)
-    print(f"Here is the list of accounts being stalked:")
+    print("Here is the list of accounts being stalked:")
     print(account_list)
     return account_list
-        
+
+
 # get following list from twitter API
 def get_following_from_twitter(handle):
     account = TwitterController(handle)
@@ -53,49 +54,57 @@ def get_following_from_twitter(handle):
         following_list.append(user.screen_name)
     return following_list
 
+
 # get following list from database
 def get_following_from_db(handle):
     account = get_account_from_db(handle)
-    # retrieve following list of account from db, assigns None to var if not present
+    # retrieve following list of account from db,
+    #   assigns None to var if not present
     following_from_db = account.get('following')
     return following_from_db
-    
+
+
 # get account from database
 def get_account_from_db(handle):
     # get following list of the account from database, None if not present
     account = None
-    for temp in accounts.find({'handle' : handle}):
+    for temp in accounts.find({'handle': handle}):
         account = temp
 
     # if account does not exist, create new account
     if account is None:
         account = {
-            'handle' : handle,
-            'following' : {}
+            'handle': handle,
+            'following': {}
         }
         add_one_account(account)
-        print(f"Account does not exist in the database, creating Account for @{handle}")
-    
+        print("Account does not exist in the database," +
+              f" creating Account for @{'handle'}")
+
     return account
+
 
 # add one account into db.accounts
 def add_one_account(account):
     accounts.insert_one(account)
 
+
 # update the following list of the user
 def update_following(handle, following_from_twitter, collection):
-    account = get_account_from_db(handle)
-    collection.update_one({'handle' : handle}, {
-        '$set' :
-            {'following' : following_from_twitter}
+    get_account_from_db(handle)
+    collection.update_one({'handle': handle}, {
+        '$set':
+            {'following': following_from_twitter}
     })
     print(f"Successfully updated {handle}")
-    
+
+
 # returns a list of twitter minus db
 def get_difference_in_following(following_from_db, following_from_twitter):
     difference = set(following_from_twitter).difference(following_from_db)
     return list(difference)
-    
+
+
 # update the database with the following list of the user
 def check_for_new_following(handle):
     # new followers container
@@ -103,8 +112,9 @@ def check_for_new_following(handle):
 
     # if account doesnt exist, update database with account and exit function
     if (not accountExists(handle)):
-        print(f"No new following found!\n" +
-              f"@{handle} is not in the database! Creating account for @{handle}.")
+        print("No new following found!\n" +
+              f"@{handle} is not in the database!" +
+              f" Creating account for @{'handle'}.")
         add_account(handle)
         return new_following
 
@@ -119,7 +129,7 @@ def check_for_new_following(handle):
         print('No new following found!')
         return new_following
     else:
-        # get new following 
+        # get new following
         new_following = get_difference_in_following(
             following_from_db, following_from_twitter
         )
