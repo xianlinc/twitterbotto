@@ -13,6 +13,7 @@ db = client['twitter']
 accounts = db['accounts']
 followers = db['followers']
 following = db['following']
+new_following_db = db['new_following']
 
             
 # if account exists, return true, else return false
@@ -82,9 +83,9 @@ def add_one_account(account):
     accounts.insert_one(account)
 
 # update the following list of the user
-def update_following(handle, following_from_twitter):
+def update_following(handle, following_from_twitter, collection):
     account = get_account_from_db(handle)
-    accounts.update_one({'handle' : handle}, {
+    collection.update_one({'handle' : handle}, {
         '$set' :
             {'following' : following_from_twitter}
     })
@@ -123,8 +124,11 @@ def check_for_new_following(handle):
             following_from_db, following_from_twitter
         )
 
+        # add to new followers database
+        update_following(handle, new_following, new_following_db)
+
         # update database with updated following from twitter
-        update_following(handle, following_from_twitter)
+        update_following(handle, following_from_twitter, accounts)
 
         # system reply
         print(f"Here are the new following for @{handle}:")
