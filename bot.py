@@ -19,6 +19,10 @@ import logging
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
+from Capturing import Capturing
+
+from Storage import *
+
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -47,6 +51,16 @@ def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
+def check_stalked(update, context):
+    with Capturing() as output:
+        check_all()
+    update.message.reply_text("\n".join(output))
+
+def stalk(update, context):
+    with Capturing() as output:
+        add_account("".join(context.args))
+    update.message.reply_text("\n".join(output))
+
 
 def main():
     """Start the bot."""
@@ -61,6 +75,8 @@ def main():
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("check_stalked", check_stalked))
+    dp.add_handler(CommandHandler("stalk", stalk))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
