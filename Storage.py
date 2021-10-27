@@ -154,3 +154,23 @@ def check_all():
     # for each account, check for new following
     for handle in handle_list:
         check_for_new_following(handle)
+
+
+# get mutual followers of two accounts
+def mutual(handle_1, handle_2):
+    # initalise TwitterControllers for both handles
+    handle_1_controller = TwitterController(handle_1)
+    handle_2_controller = TwitterController(handle_2)
+
+    # get follower list for both handles
+    handle_1_followers = handle_1_controller.get_followers()
+    handle_2_followers = handle_2_controller.get_followers()
+
+    # find mutual followers
+    mutual_followers = set(handle_1_followers).intersection(set(handle_2_followers))
+
+    result = []
+    # put the handles of mutual followers in a list
+    for user in mutual_followers:
+        result.append(user.screen_name)
+    print(result)
