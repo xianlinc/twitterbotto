@@ -1,6 +1,5 @@
 import tweepy
 import os
-from dotenv import load_dotenv
 
 class TwitterController():
     def __init__(self, twitter_user=None):
