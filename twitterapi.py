@@ -13,7 +13,7 @@ class TwitterController():
             )
         self.auth = auth
         self.twitter_controller = tweepy.API(
-            self.auth, wait_on_rate_limit=True
+            self.auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=False
             )
         self.twitter_user = twitter_user
 
