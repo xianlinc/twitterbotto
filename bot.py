@@ -17,11 +17,17 @@ bot.
 
 import logging
 
+import os
+
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 from Capturing import Capturing
 
 from Storage import *
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -67,7 +73,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("2097509859:AAFQcGL_YolZfRrj7Flwoj7WJ_MkidKKn0w", use_context=True)
+    updater = Updater(os.getenv("TELEGRAM_API"), use_context=True)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher

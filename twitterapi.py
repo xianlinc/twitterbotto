@@ -1,19 +1,22 @@
 import tweepy
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 class TwitterController():
     def __init__(self, twitter_user=None):
         auth = tweepy.OAuthHandler(
-            "JDvtgsgZCbLUtgdTKAhsx6OSV",
-            "cr2tQMQYYbtVP34El92bQZUKXnyMdx6Bjc88x3ZsbKDq46ppTK"
+            os.getenv("TWITTER_AUTH_KEY"),
+            os.getenv("TWITTER_AUTH_SECRET")
             )
         auth.set_access_token(
-            "1413059952298528771-BfKsDMv6rQjqBCyg99beIYtq2ffjwh",
-            "nGxGB3Wwp8soCgxzjfVQxNt9tgpkRJODlB0bp0jGhnllp"
+            os.getenv("TWITTER_ACCESS_KEY"),
+            os.getenv("TWITTER_ACCESS_SECRET")
             )
         self.auth = auth
         self.twitter_controller = tweepy.API(
-            self.auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True
+            self.auth, wait_on_rate_limit=True
             )
         self.twitter_user = twitter_user
 
