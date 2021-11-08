@@ -130,7 +130,7 @@ def check_for_new_following(handle):
     
     # if no difference in following, no new followers, exit function
     if (new_following == []):
-        print('No new following found!')
+        print(f'No new following found for @{handle}!')
         return new_following
 
     # add to new followers database
@@ -141,7 +141,8 @@ def check_for_new_following(handle):
 
     # system reply
     print(f"Here are the new following for @{handle}:")
-    print(new_following)
+    print(*new_following, sep = "\n")
+
 
     return new_following
 
