@@ -63,6 +63,10 @@ def stalk(update, context):
         add_account("".join(context.args))
     update.message.reply_text("\n".join(output))
 
+def list(update, context):
+    with Capturing() as output:
+        get_account_list()
+    update.message.reply_text("\n".join(output))
 
 def main():
     """Start the bot."""
@@ -79,6 +83,7 @@ def main():
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("check_stalked", check_stalked))
     dp.add_handler(CommandHandler("stalk", stalk))
+    dp.add_handler(CommandHandler("list", list))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
@@ -86,6 +91,8 @@ def main():
     # log all errors
     dp.add_error_handler(error)
 
+    # Start the Bot
+    updater.start_polling()
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
