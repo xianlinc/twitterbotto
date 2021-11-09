@@ -30,7 +30,7 @@ class TwitterController():
     def get_following_list(self):
         following_list = []
         for friend in tweepy.Cursor(
-                      self.twitter_controller.friends,
+                      self.twitter_controller.get_friends,
                       id=self.twitter_user
                       ).items(20):
             following_list.append(friend)
@@ -39,7 +39,7 @@ class TwitterController():
     def get_selected_following(self, user):
         following_list = []
         for friend in tweepy.Cursor(
-                      self.twitter_controller.friends, id=user
+                      self.twitter_controller.get_friends, id=user
                       ).items():
             following_list.append(friend)
         return following_list
