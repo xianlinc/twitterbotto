@@ -141,8 +141,10 @@ def check_for_new_following(handle):
 
     # system reply
     print(f"Here are the new following for [@{handle}](twitter.com/{handle}/):")
-    print(*new_following, sep = "\n")
-
+    str_builder = ""
+    for str in new_following:
+        str_builder += f"[@{str}](twitter.com/{str})\n"
+    print(str_builder)
 
     return new_following
 
