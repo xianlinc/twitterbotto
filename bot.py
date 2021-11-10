@@ -56,17 +56,21 @@ def error(update, context):
 def check_stalked(update, context):
     with Capturing() as output:
         check_all()
-    update.message.reply_text("\n".join(output))
+    update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
 
 def stalk(update, context):
     with Capturing() as output:
         add_account("".join(context.args))
-    update.message.reply_text("\n".join(output))
+    update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
 
 def list(update, context):
     with Capturing() as output:
         get_account_list()
-    update.message.reply_text("\n".join(output))
+    update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
+
+def markdown(update, context):
+    update.message.reply_markdown_v2("[inline URL](http://www.twitter.com/zhusu/)")
+
 
 def main():
     """Start the bot."""
