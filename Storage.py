@@ -119,7 +119,7 @@ def check_for_new_following(handle):
     # if account doesnt exist, update database with account and exit function
     if (not account_exists(handle)):
         print(f"[@{escape_markdown(handle)}](twitter.com/{handle}/) is not in the database\!" +
-              f" Creating account for [@{escape_markdown(handle)}](twitter.com/{handle}/).")
+              f" Creating account for [@{escape_markdown(handle)}](twitter.com/{handle}/)")
         add_account(handle)
         return new_following
 
