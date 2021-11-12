@@ -71,6 +71,11 @@ def list(update, context):
 def markdown(update, context):
     update.message.reply_markdown_v2("[inline URL](http://www.twitter.com/zhusu/)")
 
+def check(update, context):
+    with Capturing() as output:
+        check_for_new_following("".join(context.args))
+    update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
+
 
 def main():
     """Start the bot."""
@@ -88,6 +93,7 @@ def main():
     dp.add_handler(CommandHandler("check_stalked", check_stalked))
     dp.add_handler(CommandHandler("stalk", stalk))
     dp.add_handler(CommandHandler("list", list))
+    dp.add_handler(CommandHandler("check", check))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
