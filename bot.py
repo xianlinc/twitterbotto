@@ -56,7 +56,7 @@ def error(update, context):
 def check_stalked(update, context):
     with Capturing() as output:
         check_all()
-    update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
+    update.message.reply_text("\n".join(output))
 
 def stalk(update, context):
     with Capturing() as output:
