@@ -130,7 +130,7 @@ def check_for_new_following(handle):
     
     # if no difference in following, no new followers, exit function
     if (new_following == []):
-        print(f'No new following found for [@{handle}](twitter.com/{handle}/)\!')
+        print(f'No new following found for @{handle}!')
         return new_following
 
     # add to new followers database
@@ -140,7 +140,7 @@ def check_for_new_following(handle):
     update_following(handle, following_from_twitter, accounts)
 
     # system reply
-    print(f"Here are the new following for [@{handle}](twitter.com/{handle}/):")
+    print(f"Here are the new following for @{handle}:")
     print(*new_following, sep = "\n")
 
 
