@@ -149,7 +149,8 @@ def check_for_new_following(handle):
     print(f"Here are the new following for [@{escape_markdown(handle)}](twitter.com/{handle}/):")
     str_builder = ""
     for str in new_following:
-        str_builder += f"[@{escape_markdown(str)}](twitter.com/{str})\n"
+        # str_builder += f"[@{escape_markdown(str)}](twitter.com/{str}/)\n"
+        str_builder += f"@{escape_markdown(str)}\n"
     print(str_builder)
 
 
