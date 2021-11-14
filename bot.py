@@ -54,9 +54,14 @@ def error(update, context):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 def check_stalked(update, context):
-    with Capturing() as output:
-        check_all()
-    update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
+    # get a list of handles of stalked accounts
+    handle_list = get_account_list()
+
+    # for each account, check for new following
+    for handle in handle_list:
+        with Capturing() as output:
+            check_for_new_following(handle)
+        update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
 
 def stalk(update, context):
     with Capturing() as output:
