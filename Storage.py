@@ -21,7 +21,7 @@ def escape_markdown(text):
     return reparse 
 
 def link_markdown(handle):
-    return f"{link_markdown(handle)}"
+    return f"[@{escape_markdown(handle)}](twitter.com/{handle}/)"
 
 # if account exists, return true, else return false
 def account_exists(handle):
