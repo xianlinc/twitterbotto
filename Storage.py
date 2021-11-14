@@ -152,7 +152,7 @@ def check_for_new_following(handle):
     print(f"Here are the new following for {link_markdown(handle)}:")
     str_builder = ""
     for str in new_following:
-        str_builder += f"@{link_markdown(str)}\n"
+        str_builder += f"{link_markdown(str)}\n"
     print(str_builder.strip())
 
 
