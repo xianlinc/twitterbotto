@@ -20,6 +20,9 @@ def escape_markdown(text):
     reparse = re.sub(r"\\\\([_*\[\]()~`>\#\+\-=|\.!])", r"\1", parse)
     return reparse 
 
+def link_markdown(handle):
+    return f"{link_markdown(handle)}"
+
 # if account exists, return true, else return false
 def account_exists(handle):
     account = None
@@ -38,7 +41,7 @@ def add_account(handle):
         'following': following_from_twitter
     }
     add_one_account(account)
-    print(f"We are successfully stalking [@{escape_markdown(handle)}](twitter.com/{handle}/)")
+    print(f"We are successfully stalking {link_markdown(handle)}")
 
 
 # get a list of accounts in the accounts database
@@ -85,7 +88,7 @@ def get_account_from_db(handle):
         }
         add_one_account(account)
         print("Account does not exist in the database," +
-              f" creating Account for [@{escape_markdown(handle)}](twitter.com/{handle}/)")
+              f" creating Account for {link_markdown(handle)}")
 
     return account
 
@@ -118,8 +121,8 @@ def check_for_new_following(handle):
 
     # if account doesnt exist, update database with account and exit function
     if (not account_exists(handle)):
-        print(f"[@{escape_markdown(handle)}](twitter.com/{handle}/) is not in the database\!" +
-              f" Creating account for [@{escape_markdown(handle)}](twitter.com/{handle}/)")
+        print(f"Account is not in the database\!" +
+              f" Creating account for {link_markdown(handle)}")
         add_account(handle)
         return new_following
 
@@ -136,7 +139,7 @@ def check_for_new_following(handle):
     
     # if no difference in following, no new followers, exit function
     if (new_following == []):
-        print(f'No new following found for [@{escape_markdown(handle)}](twitter.com/{handle}/)\!')
+        print(f'No new following found for {link_markdown(handle)}\!')
         return new_following
 
     # add to new followers database
@@ -146,11 +149,10 @@ def check_for_new_following(handle):
     update_following(handle, following_from_twitter, accounts)
 
     # system reply
-    print(f"Here are the new following for [@{escape_markdown(handle)}](twitter.com/{handle}/):")
+    print(f"Here are the new following for {link_markdown(handle)}:")
     str_builder = ""
     for str in new_following:
-        # str_builder += f"[@{escape_markdown(str)}](twitter.com/{str}/)\n"
-        str_builder += f"@{escape_markdown(str)}\n"
+        str_builder += f"@{link_markdown(str)}\n"
     print(str_builder.strip())
 
 
