@@ -36,12 +36,13 @@ logger = logging.getLogger(__name__)
 # context. Error handlers also receive the raised TelegramError object in error.
 def test(update, context):
     """Send a message when the command /test is issued."""
-    update.message.send_message('Bot is up')
+    update.message.reply_markdown_V2('Bot is up')
 
 
 def help(update, context):
     """Send a message when the command /help is issued."""
-    update.message.send_message('Help!')
+    update.message.reply_markdown_V2('Help!')
+
 
 def error(update, context):
     """Log Errors caused by Updates."""
@@ -55,17 +56,20 @@ def check_stalked(update, context):
     for handle in handle_list:
         with Capturing() as output:
             check_for_new_following(handle)
-        update.message.send_message("\n".join(output), parse_mode = 'MarkdownV2')
+        update.message.reply_markdown_V2("\n".join(output))
+
 
 def stalk(update, context):
     with Capturing() as output:
         add_account("".join(context.args))
-    update.message.send_message("\n".join(output), parse_mode = 'MarkdownV2')
+    update.message.reply_markdown_V2("\n".join(output))
+
 
 def list(update, context):
     with Capturing() as output:
         get_account_list()
-    update.message.send_message("\n".join(output), parse_mode = 'MarkdownV2')
+    update.message.reply_markdown_V2("\n".join(output))
+
 
 def markdown(update, context):
     update.message.reply_markdown_v2("[inline URL](http://www.twitter.com/zhusu/)")
@@ -73,17 +77,20 @@ def markdown(update, context):
 def check(update, context):
     with Capturing() as output:
         check_for_new_following("".join(context.args))
-    update.message.send_message("\n".join(output), parse_mode = 'MarkdownV2')
+    update.message.reply_markdown_V2("\n".join(output))
+
 
 def dao(update, context):
     with Capturing() as output:
         get_dao_list()
-    update.message.send_message("\n".join(output), parse_mode = 'MarkdownV2')
+    update.message.reply_markdown_V2("\n".join(output))
+
 
 def contains(update, context):
     with Capturing() as output:
         db_contains("".join(context.args))
-    update.message.send_message("\n".join(output), parse_mode = 'MarkdownV2')
+    update.message.reply_markdown_V2("\n".join(output))
+
 
 def main():
     """Start the bot."""
