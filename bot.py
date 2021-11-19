@@ -55,17 +55,17 @@ def check_stalked(update, context):
     for handle in handle_list:
         with Capturing() as output:
             check_for_new_following(handle)
-        update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
+        update.message.send_message("\n".join(output), parse_mode = 'MarkdownV2')
 
 def stalk(update, context):
     with Capturing() as output:
         add_account("".join(context.args))
-    update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
+    update.message.send_message("\n".join(output), parse_mode = 'MarkdownV2')
 
 def list(update, context):
     with Capturing() as output:
         get_account_list()
-    update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
+    update.message.send_message("\n".join(output), parse_mode = 'MarkdownV2')
 
 def markdown(update, context):
     update.message.reply_markdown_v2("[inline URL](http://www.twitter.com/zhusu/)")
@@ -73,17 +73,17 @@ def markdown(update, context):
 def check(update, context):
     with Capturing() as output:
         check_for_new_following("".join(context.args))
-    update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
+    update.message.send_message("\n".join(output), parse_mode = 'MarkdownV2')
 
 def dao(update, context):
     with Capturing() as output:
         get_dao_list()
-    update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
+    update.message.send_message("\n".join(output), parse_mode = 'MarkdownV2')
 
 def contains(update, context):
     with Capturing() as output:
         db_contains("".join(context.args))
-    update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
+    update.message.send_message("\n".join(output), parse_mode = 'MarkdownV2')
 
 def main():
     """Start the bot."""
@@ -96,7 +96,7 @@ def main():
     dp = updater.dispatcher
 
     # on different commands - answer in Telegram
-    dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("test", test))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("check_stalked", check_stalked))
     dp.add_handler(CommandHandler("stalk", stalk))
