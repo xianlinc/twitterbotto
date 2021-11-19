@@ -103,6 +103,7 @@ def main():
     dp.add_handler(CommandHandler("stalk", stalk))
     dp.add_handler(CommandHandler("list", list))
     dp.add_handler(CommandHandler("check", check))
+    dp.add_handler(CommandHandler("dao", dao))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
