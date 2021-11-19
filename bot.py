@@ -81,6 +81,10 @@ def check(update, context):
         check_for_new_following("".join(context.args))
     update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
 
+def dao(update, context):
+    with Capturing() as output:
+        get_dao_list()
+    update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
 
 def main():
     """Start the bot."""

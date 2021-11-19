@@ -56,6 +56,7 @@ def get_account_list():
 
 
 # get following list from twitter API
+# returns a list of strings
 def get_following_from_twitter(handle):
     account = TwitterController(handle)
     following_list = []
@@ -65,6 +66,7 @@ def get_following_from_twitter(handle):
 
 
 # get following list from database
+# returns a list of strings
 def get_following_from_db(handle):
     account = get_account_from_db(handle)
     # retrieve following list of account from db,
@@ -187,3 +189,27 @@ def mutual(handle_1, handle_2):
     for user in mutual_followers:
         result.append(user.screen_name)
     print(result)
+
+# gets a list of following of user provided handle that contains substring "dao"
+# returns a list of strings
+def get_dao(handle):
+    dao_list = []
+    for user in get_following_from_db(handle):
+        if "dao" in user.lower():
+            user_markdown = link_markdown(user)
+            dao_list.append(user_markdown)
+
+# gets a list of following of all following in db that contains substring "dao"
+# returns a list of strings
+def get_dao_list():
+    handle_list = get_account_list()
+    dao_list = []
+    for handle in handle_list():
+        dao_list.append(get_dao(handle))
+    if dao_list == []:
+        print("No DAOs found in the database")
+    else:
+        print("Here are the DAOs found in the database:")
+        print(dao_list)
+    
+    
