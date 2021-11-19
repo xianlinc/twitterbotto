@@ -141,7 +141,7 @@ def check_for_new_following(handle):
     
     # if no difference in following, no new followers, exit function
     if (new_following == []):
-        print(f'No new following found for {link_markdown(handle)}\!')
+        # print(f'No new following found for {link_markdown(handle)}\!')
         return new_following
 
     # add to new followers database
@@ -213,6 +213,3 @@ def db_contains(str):
             print(*str_list, sep='\n')
     if not found:
         print(f"No handles containing \"{str}\" can be found")
-
-
-db_contains("bug")
