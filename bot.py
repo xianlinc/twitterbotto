@@ -56,8 +56,8 @@ def check_stalked(update, context):
     for handle in handle_list:
         with Capturing() as output:
             following_list = check_for_new_following(handle)
-            if following_list == []:
-                continue
+        if following_list == []:
+            continue
         update.message.reply_markdown_v2("\n".join(output))
 
 
