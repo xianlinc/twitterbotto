@@ -50,8 +50,8 @@ def get_account_list():
     for account in accounts.find({}):
         handle = account.get('handle')
         account_list.append(handle)
-    print("Here is the list of accounts being stalked:")
-    print(account_list)
+    # print("Here is the list of accounts being stalked:")
+    # print(account_list)
     return account_list
 
 
