@@ -207,11 +207,12 @@ def get_dao_list():
     dao_list = []
     for handle in handle_list:
         dao_list.extend(get_dao(handle))
+
+    # get rid of duplicates
+    dao_list = list(set(dao_list))
+
     if dao_list == []:
         print("No DAOs found in the database")
     else:
         print("Here are the DAOs found in the database:")
         print(*dao_list, sep='\n')
-    
-get_dao_list()
-    
