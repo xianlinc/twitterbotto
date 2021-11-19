@@ -231,7 +231,7 @@ def db_contains(str):
     str_list = list(set(str_list))
 
     if str_list == []:
-        print("No handles containing {str} found in the database")
+        print(f"No handles containing {str} found in the database")
     else:
-        print("Here are the handles containing {str} found in the database:")
+        print(f"Here are the handles containing {str} found in the database:")
         print(*str_list, sep='\n')
