@@ -49,6 +49,8 @@ def error(update, context):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 def check_stalked(update, context):
+
+    update.message.reply_markdown_v2("Here are the new following for stalked accounts:")
     # get a list of handles of stalked accounts
     handle_list = get_account_list()
 
