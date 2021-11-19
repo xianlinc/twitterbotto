@@ -216,3 +216,22 @@ def get_dao_list():
     else:
         print("Here are the DAOs found in the database:")
         print(*dao_list, sep='\n')
+
+# gets following that contains input string TODO
+def db_contains(str):
+    handle_list = get_account_list()
+    str_list = []
+    for handle in handle_list:
+        for user in get_following_from_db(handle):
+            if str in user.lower():
+                user_markdown = link_markdown(user)
+                str_list.append(user_markdown)
+
+    # get rid of duplicates
+    str_list = list(set(str_list))
+
+    if str_list == []:
+        print("No handles containing {str} found in the database")
+    else:
+        print("Here are the handles containing {str} found in the database:")
+        print(*str_list, sep='\n')

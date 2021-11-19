@@ -86,6 +86,11 @@ def dao(update, context):
         get_dao_list()
     update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
 
+def contains(update, context):
+    with Capturing() as output:
+        db_contains("".join(context.args))
+    update.message.reply_text("\n".join(output), parse_mode = 'MarkdownV2')
+
 def main():
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
@@ -104,6 +109,7 @@ def main():
     dp.add_handler(CommandHandler("list", list))
     dp.add_handler(CommandHandler("check", check))
     dp.add_handler(CommandHandler("dao", dao))
+    dp.add_handler(CommandHandler("contains", contains))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
