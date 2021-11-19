@@ -190,48 +190,29 @@ def mutual(handle_1, handle_2):
         result.append(user.screen_name)
     print(result)
 
-# gets a list of following of user provided handle that contains substring "dao"
-# returns a list of strings
-def get_dao(handle):
-    dao_list = []
-    for user in get_following_from_db(handle):
-        if "dao" in user.lower():
-            user_markdown = link_markdown(user)
-            dao_list.append(user_markdown)
-    return dao_list
-
 # gets a list of following of all following in db that contains substring "dao"
 # returns a list of strings
 def get_dao_list():
-    handle_list = get_account_list()
-    dao_list = []
-    for handle in handle_list:
-        dao_list.extend(get_dao(handle))
-
-    # get rid of duplicates
-    dao_list = list(set(dao_list))
-
-    if dao_list == []:
-        print("No DAOs found in the database")
-    else:
-        print("Here are the DAOs found in the database:")
-        print(*dao_list, sep='\n')
+    db_contains("dao")
 
 # gets following that contains input string TODO
 def db_contains(str):
+    print(f"Here are the handles containing {str} found in the database:")
     handle_list = get_account_list()
-    str_list = []
+    found = False
     for handle in handle_list:
+        str_list = []
         for user in get_following_from_db(handle):
             if str in user.lower():
+                found = True
                 user_markdown = link_markdown(user)
                 str_list.append(user_markdown)
+        
+        if str_list != []:
+            print(f"\nMatches found from {link_markdown(handle)}:")
+            print(*str_list, sep='\n')
+    if not found:
+        print(f"No handles containing \"{str}\" can be found")
 
-    # get rid of duplicates
-    str_list = list(set(str_list))
 
-    if str_list == []:
-        print(f"No handles containing {str} found in the database")
-    else:
-        print(f"Here are the handles containing {str} found in the database:")
-        print(*str_list, sep='\n')
+db_contains("bug")
