@@ -198,18 +198,20 @@ def get_dao(handle):
         if "dao" in user.lower():
             user_markdown = link_markdown(user)
             dao_list.append(user_markdown)
+    return dao_list
 
 # gets a list of following of all following in db that contains substring "dao"
 # returns a list of strings
 def get_dao_list():
     handle_list = get_account_list()
     dao_list = []
-    for handle in handle_list():
-        dao_list.append(get_dao(handle))
+    for handle in handle_list:
+        dao_list.extend(get_dao(handle))
     if dao_list == []:
         print("No DAOs found in the database")
     else:
         print("Here are the DAOs found in the database:")
-        print(dao_list)
+        print(*dao_list, sep='\n')
     
+get_dao_list()
     
